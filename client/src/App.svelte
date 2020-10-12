@@ -23,7 +23,7 @@
     async function removeTransaction(id) {
 		const response = await axios.delete('/api/budgets/' + id)
 		if (response.data.id === id) {
-			transactions = transactions.filter(transaction => transaction._id =! id)
+			transactions = transactions.filter(transaction => transaction._id != id)
 		}
 	}
 </script>
@@ -91,26 +91,13 @@
 				<span>{transaction.date}</span>
 			</div>
 	
-			<div class="amount" id="positive-amount">
+			<div class="amount" id="{transaction.value > 0 ? 'positive-amount' : 'negative-amount'}">
 				<span>{transaction.value}</span>
 				<button class="delete" on:click={() => removeTransaction(transaction._id)} />
 			</div>
 	
 		</div>
 		{/each}
-	
-		<!-- <div class="transactions-div">
-	
-			<div class="transaction">
-				<span>Amazon</span>
-				<span>22 Feb 11:43 AM</span>
-			</div>
-	
-			<div class="amount" id="amazon-amount">
-				<span>$65.23</span>
-			</div>
-	
-		</div> -->
 	
 	</section>
 </main>
@@ -219,7 +206,7 @@ main {
 	color: #00F5C3
 }
 
-#amazon-amount span {
+#negative-amount span {
 	color: #EF2460
 }
 </style>
