@@ -1,58 +1,67 @@
 <script>
-    import axios from 'axios';
-    import { onMount } from 'svelte'
-    let amount = 0;
-    let typeOfTransaction = '+';
-    let transactions = []
+import axios from 'axios';
+import { onMount } from 'svelte'
+let amount = 0;
+let typeOfTransaction = '+';
+let transactions = []
 
-    onMount(async() => {
-        const { data } = await axios.get('/api/budgets');
-        transactions = data;
-    })
+$: disabled = !amount;
+$: balance = transactions.reduce((acc, t) => acc + t.value, 0);
+$: income = transactions
+	.filter(t => t.value > 0)
+	.reduce ((acc, t) => acc + t.value, 0)
+$: expenses = transactions
+	.filter(t => t.value < 0)
+	.reduce((acc , t) => acc + t.value, 0)
 
-    async function addTransaction() {
-        const transaction = {
-            date: new Date().getTime(),
-            value: typeOfTransaction === '+' ? amount : amount * -1
-        }
-        const response = await axios.post('/api/budgets', transaction);
-        transactions = [response.data, ...transactions];
-        amount = 0;
+onMount(async() => {
+    const { data } = await axios.get('/api/budgets');
+    transactions = data;
+})
+
+async function addTransaction() {
+    const transaction = {
+        date: new Date().getTime(),
+        value: typeOfTransaction === '+' ? amount : amount * -1
     }
+    const response = await axios.post('/api/budgets', transaction);
+    transactions = [response.data, ...transactions];
+    amount = 0;
+}
 
-    async function removeTransaction(id) {
-		const response = await axios.delete('/api/budgets/' + id)
-		if (response.data.id === id) {
-			transactions = transactions.filter(transaction => transaction._id != id)
-		}
+async function removeTransaction(id) {
+	const response = await axios.delete('/api/budgets/' + id)
+	if (response.data.id === id) {
+		transactions = transactions.filter(transaction => transaction._id != id)
 	}
+}
 </script>
 
 
-	
+
 <main class="container">
 	<section id="balance">
-    
+
 		<header>
 			<h1>Dashboard</h1>
 			<p>Current Balance</p>
-			<h2>$38 204.00</h2>
+			<h2>${balance}</h2>
 		</header>
-	
+
 		<div>
-	
+
 			<aside class="income-expense" id="income">
 				<span>INCOME</span>
-				<span>$ 1980.38</span>
+				<span>$ {income}</span>
 			</aside>
-	
+
 			<aside class="income-expense" id="expense">
 				<span>EXPENSE</span>
-				<span>$ 2739.92</span>
+				<span>$ {expenses}</span>
 			</aside>
-	
+
 		</div>
-	
+
 	</section>
 
 	<section id="chart"></section>
@@ -72,36 +81,36 @@
 				<input class="input" type="number" bind:value={amount} placeholder="Amount of money">
 			</p>
 			<p class="control">
-				<button class="button" on:click={addTransaction}>
+				<button class="button" on:click={addTransaction} {disabled}>
 					Save
 				</button>
 			</p>
 		</div>
-	
+
 		<header id="transactions-header">
 			<span>Transactions</span>
 			<span>Show All</span>
 		</header>
-	
+
 		{#each transactions as transaction (transaction._id)}
 		<div class="transactions-div">
-	
+
 			<div class="transaction">
 				<span>{transaction.description}</span>
 				<span>{transaction.date}</span>
 			</div>
-	
+
 			<div class="amount" id="{transaction.value > 0 ? 'positive-amount' : 'negative-amount'}">
 				<span>{transaction.value}</span>
 				<button class="delete" on:click={() => removeTransaction(transaction._id)} />
 			</div>
-	
+
 		</div>
 		{/each}
-	
+
 	</section>
 </main>
-	
+
 <style>
 #balance {
 	display: flex;
