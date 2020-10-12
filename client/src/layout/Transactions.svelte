@@ -1,30 +1,68 @@
 <script>
-    import Form from '../components/Form/Form.svelte'
+    import axios from 'axios';
+    import { onMount } from 'svelte'
+    let number = 0;
+    let typeOfTransaction = '+';
+    let transactions = []
+
+    onMount(async() => {
+        const { data } = await axios.get('/api/budgets');
+        transactions = data;
+    })
+
+    async function addTransaction() {
+        const transaction = {
+            date: new Date().getTime(),
+            value: typeOfTransaction === '+' ? input : input * -1
+        }
+        const response = await axios.post('/api/budgets', transaction);
+        transactions = [response.data, ...transactions];
+        input = 0;
+    }
 </script>
 
 <section id="transactions">
 
-    <Form />
+    <div class="field has-addons">
+        <p class="control">
+            <span class="select">
+                <select bind:value={typeOfTransaction}>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                </select>
+            </span>
+        </p>
+        <p class="control is-expanded">
+            <input class="input" type="number" bind:value={number} placeholder="Amount of money">
+        </p>
+        <p class="control">
+            <button class="button" on:click={addTransaction}>
+                Save
+            </button>
+        </p>
+    </div>
 
     <header id="transactions-header">
         <span>Transactions</span>
         <span>Show All</span>
     </header>
 
+    {#each transactions as transaction}
     <div class="transactions-div">
 
         <div class="transaction">
-            <span>Freelance Work</span>
-            <span>23 Feb 10:32 AM</span>
+            <span>{transaction.description}</span>
+            <span>{transaction.date}</span>
         </div>
 
-        <div class="amount" id="freelance-amount">
-            <span>$120.30</span>
+        <div class="amount" id="positive-amount">
+            <span>{transaction.value}</span>
         </div>
 
     </div>
+    {/each}
 
-    <div class="transactions-div">
+    <!-- <div class="transactions-div">
 
         <div class="transaction">
             <span>Amazon</span>
@@ -35,7 +73,7 @@
             <span>$65.23</span>
         </div>
 
-    </div>
+    </div> -->
 
 </section>
 
@@ -87,7 +125,7 @@
         font-size: 12px;
     }
 
-    #freelance-amount span {
+    #positive-amount span {
         color: #00F5C3
     }
 
