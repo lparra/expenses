@@ -74,7 +74,7 @@ async function removeTransaction(id) {
 			<span>Transactions</span>
 			<span>Show All</span>
 		</header>
-		{#if Loading}
+		{#if loading}
 			<Loading />
 		{/if}
 		{#each sortedTransactions as transaction (transaction._id)}
