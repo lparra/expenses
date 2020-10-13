@@ -3,9 +3,11 @@ import { onMount } from 'svelte';
 import axios from 'axios';
 import Balance from './components/Balance.svelte';
 import Transaction from './components/Transaction.svelte';
+import Loading from './components/Loading.svelte';
 let amount = 0;
 let typeOfTransaction = '+';
-let transactions = []
+let transactions = [];
+let loading = false;
 
 $: sortedTransactions = transactions.sort((a,b) => b.date - a.date);
 $: disabled = !amount;
@@ -18,8 +20,10 @@ $: expenses = transactions
 	.reduce((acc , t) => acc + t.value, 0)
 
 onMount(async() => {
+	loading = true;
     const { data } = await axios.get('/api/budgets');
-    transactions = data;
+	transactions = data;
+	loading = false;
 })
 
 async function addTransaction() {
@@ -70,6 +74,9 @@ async function removeTransaction(id) {
 			<span>Transactions</span>
 			<span>Show All</span>
 		</header>
+		{#if Loading}
+			<Loading />
+		{/if}
 		{#each sortedTransactions as transaction (transaction._id)}
 			<Transaction {transaction} {removeTransaction} />
 		{/each}
