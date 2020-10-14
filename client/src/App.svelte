@@ -1,4 +1,5 @@
 <script>
+// TODO: Typescript
 import {
 	onMount
 } from 'svelte';
@@ -61,12 +62,12 @@ async function removeTransaction(id) {
 		<div>
 
 			<aside class="income-expense" id="income">
-				<span>INCOME</span>
+				<span>Income</span>
 				<span>$ {$income}</span>
 			</aside>
 
 			<aside class="income-expense" id="expense">
-				<span>EXPENSE</span>
+				<span>Expense</span>
 				<span>$ {$expenses}</span>
 			</aside>
 
@@ -175,6 +176,7 @@ header p {
 .income-expense span {
 	margin: 0 24px;
 	font-size: 14px;
+	text-transform: uppercase;
 }
 
 #income span:first-of-type {
