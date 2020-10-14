@@ -13,6 +13,7 @@ import {
 	expenses
 } from './stores';
 
+let description = null;
 let amount = null;
 let typeOfTransaction = '+';
 let loading = false;
@@ -30,11 +31,13 @@ onMount(async () => {
 
 async function addTransaction() {
 	const transaction = {
+		description: description,
 		date: new Date().getTime(),
 		value: typeOfTransaction === '+' ? amount : amount * -1
 	}
 	const response = await axios.post('/api/budgets', transaction);
 	$transactions = [response.data, ...$transactions];
+	description = '';
 	amount = null;
 }
 
@@ -82,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	<section id="transactions">
 			<div class="col s12">
 				<div class="input-field col s12">
-					<input id="description" type="text" class="validate" required>
+					<input id="description" type="text" bind:value={description} class="validate" required>
 					<label for="description">Description</label>
 				</div>
 			</div>

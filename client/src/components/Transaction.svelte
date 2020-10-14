@@ -71,6 +71,7 @@ export let removeTransaction;
 }
 
 .delete {
+	cursor: pointer;
 	background-color: transparent;
 	color: white;
 	border: none;
