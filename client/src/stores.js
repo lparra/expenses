@@ -5,8 +5,8 @@ import {
 
 export const transactions = writable([])
 export const sortedTransactions = derived(transactions, (value) => value.sort((a, b) => b.date - a.date))
-export const balance = derived(transactions, (value) => value.reduce((acc, t) => acc + t.value, 0))
-export const income = derived(transactions, (value) => value.filter((t) => t.value > 0).reduce((acc, t) => acc + t.value, 0))
+export const balance = derived(transactions, (value) => value.reduce((acc, t) => acc + t.value, 0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+export const income = derived(transactions, (value) => value.filter((t) => t.value > 0).reduce((acc, t) => acc + t.value, 0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
 export const expenses = derived(transactions, (value) =>
-    value.filter((t) => t.value < 0).reduce((acc, t) => acc + t.value, 0)
+    value.filter((t) => t.value < 0).reduce((acc, t) => acc + t.value, 0).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 )

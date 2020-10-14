@@ -13,7 +13,7 @@ export let removeTransaction;
 
     <div class="amount" id="{transaction.value > 0 ? 'positive-amount' : 'negative-amount'}"
 		transition:slide={{duration: 500 }}>
-		<span>{transaction.value}</span>
+		<span>{transaction.value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span>
         <button class="delete" on:click={()=> removeTransaction(transaction._id)}>
 			<i class="material-icons">delete_outline</i>
 		</button>

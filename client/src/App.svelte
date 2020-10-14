@@ -48,11 +48,6 @@ async function removeTransaction(id) {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const elems = document.querySelectorAll('select');
-    const instances = M.FormSelect.init(elems);
-});
-
 </script>
 
 <main class="container">
@@ -83,25 +78,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	</section> -->
 
 	<section id="transactions">
-			<div class="col s12">
-				<div class="input-field col s12">
-					<input id="description" type="text" bind:value={description} class="validate" required>
-					<label for="description">Description</label>
-				</div>
+		<div class="col s12">
+			<div class="input-field col s12">
+				<input id="description" type="text" bind:value={description} class="validate" required>
+				<label for="description">Description</label>
 			</div>
-			<div class="col s12">
-				<div class="input-field col s12">
-					<input id="amount" type="number" bind:value={amount} class="validate" required>
-					<label for="amount">Amount</label>
-				</div>
+		</div>
+		<div class="col s12">
+			<div class="input-field col s12">
+				<input id="amount" type="number" bind:value={amount} class="validate" required>
+				<label for="amount">Amount</label>
 			</div>
-			<div class="col s12">
-				<div class="input-field col s12 right-align">
-					<button class="waves-effect waves-light btn" on:click={addTransaction} {disabled}>
-						Save
-					</button>
-				</div>
+		</div>
+		<div class="col s12">
+			<div class="input-field col s12 right-align">
+				<button class="waves-effect waves-light btn" on:click={addTransaction} {disabled}>
+					Save
+				</button>
 			</div>
+		</div>
 
 		{#if $transactions.length > 0}
 		<header id="transactions-header">
