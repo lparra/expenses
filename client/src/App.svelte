@@ -3,7 +3,6 @@ import {
 	onMount
 } from 'svelte';
 import axios from 'axios';
-import Balance from './components/Balance.svelte';
 import Transaction from './components/Transaction.svelte';
 import Loading from './components/Loading.svelte';
 import {
@@ -45,17 +44,38 @@ async function removeTransaction(id) {
 		$transactions = $transactions.filter(transaction => transaction._id != id)
 	}
 }
+
 </script>
 
 <main class="container">
 	<section id="balance">
-		<Balance {$balance} {$income} {$expenses} />
+		<header>
+			<h1>Dashboard</h1>
+			<p>Current Balance</p>
+			<h2>${$balance}</h2>
+		</header>
+
+		<div>
+
+			<aside class="income-expense" id="income">
+				<span>INCOME</span>
+				<span>$ {$income}</span>
+			</aside>
+
+			<aside class="income-expense" id="expense">
+				<span>EXPENSE</span>
+				<span>$ {$expenses}</span>
+			</aside>
+
+		</div>
 	</section>
 
-	<section id="chart"></section>
+	<!-- <section id="chart">
+		TODO: Include any kind of chart in this project and add interactive chart to this svelte applications.
+	</section> -->
 
 	<section id="transactions">
-		<div class="field has-addons">
+		<!-- <div class="field has-addons">
 			<p class="control">
 				<span class="select">
 					<select bind:value={typeOfTransaction}>
@@ -72,7 +92,7 @@ async function removeTransaction(id) {
 					Save
 				</button>
 			</p>
-		</div>
+		</div> -->
 		<header id="transactions-header">
 			<span>Transactions</span>
 			<span>Show All</span>
@@ -87,22 +107,52 @@ async function removeTransaction(id) {
 </main>
 
 <style>
+
 #balance {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	height: 35%;
+	margin-bottom: 10rem;
+	margin-top: 5rem;
 }
 
-#chart {
-	height: 25%;
+#balance header h1,
+header h2,
+header p {
+	margin: 0 24px;
+}
+
+#balance header p {
+	color: #5C6062;
+	font-size: 14px;
+}
+
+/* #balance div, */
+#balance div {
+	display: flex;
+}
+
+.income-expense {
+	display: flex;
+	flex-direction: column;
+}
+
+.income-expense span {
+	margin: 0 24px;
+	font-size: 14px;
+}
+
+#income span:first-of-type {
+	color: #00F5C3;
+}
+
+#expense span:first-of-type {
+	color: #EF2460;
 }
 
 main {
-	height: 736px;
-	/* width: 375px; */
-	background-color: #0F1214;
 	color: #fff;
+	background-color: #0F1214;
 	border-radius: 4px;
 }
 
@@ -110,14 +160,14 @@ main {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	height: 35%;
 	color: #5C6062;
 }
 
 #transactions-header {
 	display: flex;
-	justify-content: space-between;
 	font-size: 14px;
+	justify-content: space-between;
+	margin-bottom: 1rem;
 }
 
 #transactions-header span:first-of-type {

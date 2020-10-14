@@ -22,14 +22,16 @@ export let removeTransaction;
 <style>
 
 .transactions-div {
-	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	height: 30%;
-	width: 85%;
 	background-color: #1E2021;
 	border-radius: 4px;
+	display: flex;
+	height: 100%;
+	justify-content: space-between;
 	margin: 0 auto;
+	margin-bottom: 0.5rem;
+	padding: 0.5rem;
+	width: 100%;
 }
 
 .transactions-div span {
