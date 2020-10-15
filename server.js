@@ -16,9 +16,9 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 
 mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
     })
     .then(() => console.log('MongoDB database is connected'))
     .catch((error) => console.error(error))
@@ -27,7 +27,7 @@ app.use('/api/budgets', budgetsRouter)
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/public'))
-    app.get('*', (request, response) =>{
+    app.get('*', (request, response) => {
         response.sendFile(path.resolve(__dirname, 'client', 'public', 'index.html'))
     })
 }
