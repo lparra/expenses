@@ -2,9 +2,14 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
+    "eslint": "^7.11.0",
+    "eslint-plugin-svelte3": "^2.7.3",
     "mini-css-extract-plugin": "^0.6.0",
+    "prettier": "^2.1.2",
+    "prettier-plugin-svelte": "^1.4.1",
     "serve": "^11.0.0",
     "style-loader": "^0.23.1",
     "svelte": "^3.0.0",
@@ -14,8 +19,10 @@
     "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --content-base public"
+    "dev": "webpack-dev-server --content-base public",
+    "fix": "npx eslint --fix \"{,!(node_modules|public)/**/}*.{js,svelte}\"",
+    "format": "npx prettier --write \"{,!(node_modules|public)/**/}*.{js,svelte}\"",
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "dependencies": {
     "axios": "^0.20.0"
