@@ -88,7 +88,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        color: #5c6062;
+        color: #9fa6aa;
     }
 
     #transactions-header {

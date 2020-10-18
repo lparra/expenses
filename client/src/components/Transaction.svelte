@@ -49,7 +49,7 @@
     }
 
     #negative-amount span {
-        color: #ef2460;
+        color: #fb3d3d;
     }
 
     .delete {

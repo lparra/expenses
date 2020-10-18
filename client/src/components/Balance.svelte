@@ -13,7 +13,7 @@
     }
 
     header p {
-        color: #5c6062;
+        color: #a0a4a6;
         /* font-size: 1.5rem; */
         margin-bottom: 1rem;
         margin-top: 1rem;
@@ -45,7 +45,7 @@
     }
 
     #expense span:first-of-type {
-        color: #ef2460;
+        color: #fb3d3d;
     }
 </style>
 
