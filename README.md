@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/lparra/expenses">
-    <img src="./demo/expenses.png">
+    <img src="./demo/budget.png">
   </a>
-  <h1 align="center">Expenses</h1>
+  <h1 align="center">Budget</h1>
 </p>
 
 ## Table of Contents
@@ -13,7 +13,7 @@
 * [License](#license)
 
 ## About The Project
-💸 Keep track of your expenses
+💸 See a breakdown of your income and expenses
 
 
 ### Built With

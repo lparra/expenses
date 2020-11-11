@@ -1,7 +1,7 @@
 {
-  "name": "expenses",
+  "name": "budget",
   "version": "1.0.0",
-  "description": "💸 Keep track of your expenses",
+  "description": "💸 See a breakdown of your income and expenses",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
